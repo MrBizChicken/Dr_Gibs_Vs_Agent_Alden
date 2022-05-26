@@ -15,9 +15,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
-    def update(self):
+    def update(self, dirt_group, stone_group):
         self.key_input()
-
+        self.collide(dirt_group, stone_group)
 
 
 
@@ -45,3 +45,13 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_DOWN]:
             if self.rect.bottom < GAME_HEIGHT:
                 self.rect.y += self.speed
+    def collide(self, dirt_group, stone_group):
+        dirt = pygame.sprite.spritecollide(self, dirt_group, False)
+        stone = pygame.sprite.spritecollide(self, stone_group, False)
+
+        if dirt:
+            if self.rect.bottom and self.rect.top and self.rect.left and self.rect.right < dirt[0].rect.bottom:
+                self.rect.bottom = dirt[0].rect.top
+        if stone:
+            if self.rect.bottom and self.rect.top and self.rect.left and self.rect.right < stone[0].rect.bottom:
+                self.rect.bottom = stone[0].rect.top

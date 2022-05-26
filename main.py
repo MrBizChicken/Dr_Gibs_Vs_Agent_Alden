@@ -100,7 +100,7 @@ def draw():
 
 
 def update():
-    player_group.update()
+    player_group.update(dirt_group, stone_group)
     stone_group.update()
     dirt_group.update()
 
