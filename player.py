@@ -15,43 +15,44 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
-    def update(self, dirt_group, stone_group):
-        self.key_input()
-        self.collide(dirt_group, stone_group)
+    def update(self, block_group):
+        self.key_input(block_group)
 
 
 
-    def key_input(self):
+    def key_input(self, block_group):
 
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
+            block = pygame.sprite.spritecollide(self, block_group, False)
+            if not block:
+                if self.rect.x > 0:
+                    self.rect.x += -self.speed
+            else:
+                self.rect.left = block[0].rect.right
 
-            if self.rect.x > 0:
-                self.rect.x += -self.speed
+        elif keys[pygame.K_RIGHT]:
+            block = pygame.sprite.spritecollide(self, block_group, False)
+            if not block:
+                if self.rect.right < GAME_WIDTH:
+                    self.rect.x += self.speed
+            else:
+                self.rect.right = block[0].rect.left
 
 
-        if keys[pygame.K_RIGHT]:
-            if self.rect.right < GAME_WIDTH:
-                self.rect.x += self.speed
+        elif keys[pygame.K_UP]:
+            block = pygame.sprite.spritecollide(self, block_group, False)
+            if not block:
+                if self.rect.y > 0:
+                    self.rect.y += -self.speed
+            else:
+                self.rect.top = block[0].rect.bottom
 
-
-
-        if keys[pygame.K_UP]:
-
-            if self.rect.y > 0:
-                self.rect.y += -self.speed
-
-        if keys[pygame.K_DOWN]:
-            if self.rect.bottom < GAME_HEIGHT:
-                self.rect.y += self.speed
-    def collide(self, dirt_group, stone_group):
-        dirt = pygame.sprite.spritecollide(self, dirt_group, False)
-        stone = pygame.sprite.spritecollide(self, stone_group, False)
-
-        if dirt:
-            if self.rect.bottom and self.rect.top and self.rect.left and self.rect.right < dirt[0].rect.bottom:
-                self.rect.bottom = dirt[0].rect.top
-        if stone:
-            if self.rect.bottom and self.rect.top and self.rect.left and self.rect.right < stone[0].rect.bottom:
-                self.rect.bottom = stone[0].rect.top
+        elif keys[pygame.K_DOWN]:
+            block = pygame.sprite.spritecollide(self, block_group, False)
+            if not block:
+                if self.rect.bottom < GAME_HEIGHT:
+                    self.rect.y += self.speed
+            else:
+                self.rect.bottom = block[0].rect.top

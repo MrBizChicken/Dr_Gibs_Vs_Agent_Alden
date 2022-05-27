@@ -12,8 +12,7 @@ surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 
 
 player_group = pygame.sprite.Group()
-stone_group = pygame.sprite.Group()
-dirt_group = pygame.sprite.Group()
+block_group = pygame.sprite.Group()
 
 
 
@@ -44,11 +43,11 @@ def draw_level():
 
 
             if map[row][col] == "s":
-                stone_group.add(stone.Stone(col * BLOCK_SIZE, row * BLOCK_SIZE))
+                block_group.add(stone.Stone(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
 
             if map[row][col] == "d":
-                dirt_group.add(dirt.Dirt(col * BLOCK_SIZE, row * BLOCK_SIZE))
+                block_group.add(dirt.Dirt(col * BLOCK_SIZE, row * BLOCK_SIZE))
             col += 1
 
         row += 1
@@ -91,8 +90,7 @@ def draw():
 
 
     player_group.draw(surface)
-    stone_group.draw(surface)
-    dirt_group.draw(surface)
+    block_group.draw(surface)
 
 
 
@@ -100,9 +98,8 @@ def draw():
 
 
 def update():
-    player_group.update(dirt_group, stone_group)
-    stone_group.update()
-    dirt_group.update()
+    player_group.update(block_group)
+    block_group.update()
 
 
 
