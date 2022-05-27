@@ -58,4 +58,4 @@ class Player(pygame.sprite.Sprite):
                     self.rect.y += self.speed
             else:
                 self.rect.bottom = block[0].rect.top
-            self.pd = (1, 0)
+            self.pd = (0, 1)
