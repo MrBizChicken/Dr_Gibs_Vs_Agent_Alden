@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         self.image.fill((255, 0, 0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
-
+        self.pd = 0
     def update(self, block_group):
         self.key_input(block_group)
 
@@ -31,7 +31,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.x += -self.speed
             else:
                 self.rect.left = block[0].rect.right
-
+            self.pd = (-1, 0)
         elif keys[pygame.K_RIGHT]:
             block = pygame.sprite.spritecollide(self, block_group, False)
             if not block:
@@ -40,6 +40,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.rect.right = block[0].rect.left
 
+            self.pd = (1, 0)
 
         elif keys[pygame.K_UP]:
             block = pygame.sprite.spritecollide(self, block_group, False)
@@ -48,6 +49,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.y += -self.speed
             else:
                 self.rect.top = block[0].rect.bottom
+            self.pd = (0, -1)
 
         elif keys[pygame.K_DOWN]:
             block = pygame.sprite.spritecollide(self, block_group, False)
@@ -56,3 +58,4 @@ class Player(pygame.sprite.Sprite):
                     self.rect.y += self.speed
             else:
                 self.rect.bottom = block[0].rect.top
+            self.pd = (1, 0)

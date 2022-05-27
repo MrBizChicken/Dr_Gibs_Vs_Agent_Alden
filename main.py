@@ -78,9 +78,11 @@ def main():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_q:
                     pygame.quit()
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYUP:
                 if event.key == pygame.K_e:
-                    bullet_group.add(bullet.Bullet(player.rect.x - 20, player.rect.y - 4))
+                    bullet_group.add(bullet.Bullet(player.rect.x - 20, player.rect.y - 4, player.pd))
+
+
 
         draw()
         update()
