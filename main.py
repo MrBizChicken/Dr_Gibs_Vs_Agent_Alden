@@ -4,6 +4,7 @@ import player
 import csv
 import stone
 import dirt
+import bullet
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -12,6 +13,7 @@ surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 
 
 player_group = pygame.sprite.Group()
+bullet_group = pygame.sprite.Group()
 block_group = pygame.sprite.Group()
 
 
@@ -20,14 +22,14 @@ player = player.Player()
 
 
 
-
 player_group.add(player)
 
 
 
 map = []
+filename = 'test_map.csv'
 def get_csv_file_and_put_in_array():
-    filename = 'test_map.csv'
+
 
     with open(filename, 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -48,6 +50,7 @@ def draw_level():
 
             if map[row][col] == "d":
                 block_group.add(dirt.Dirt(col * BLOCK_SIZE, row * BLOCK_SIZE))
+
             col += 1
 
         row += 1
@@ -75,6 +78,9 @@ def main():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_q:
                     pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_e:
+                    bullet_group.add(bullet.Bullet(player.rect.x - 20, player.rect.y - 4))
 
         draw()
         update()
@@ -90,6 +96,7 @@ def draw():
 
 
     player_group.draw(surface)
+    bullet_group.draw(surface)
     block_group.draw(surface)
 
 
@@ -100,6 +107,7 @@ def draw():
 def update():
     player_group.update(block_group)
     block_group.update()
+    bullet_group.update(block_group)
 
 
 
