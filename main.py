@@ -3,9 +3,10 @@ import pygame
 import player
 import csv
 import stone
-import dirt
+import metal
 import bullet
 import enemy
+import level_transtion
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -17,7 +18,7 @@ player_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 block_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
-
+level_transtion_group = pygame.sprite.Group()
 
 player = player.Player()
 
@@ -39,6 +40,7 @@ def get_csv_file_and_put_in_array():
 
 
 def draw_level():
+
     get_csv_file_and_put_in_array()
     for row in range(len(map)):
         for col in range(len(map[row])):
@@ -48,11 +50,18 @@ def draw_level():
                 block_group.add(stone.Stone(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
 
-            if map[row][col] == "d":
-                block_group.add(dirt.Dirt(col * BLOCK_SIZE, row * BLOCK_SIZE))
+            if map[row][col] == "m":
+                block_group.add(metal.Metal(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
             if map[row][col] == "e":
                 enemy_group.add(enemy.Enemy(col * BLOCK_SIZE, row * BLOCK_SIZE))
+
+            if map[row][col] == "2":
+                level_transtion_group.add(level_transtion.Level_transtion(col * BLOCK_SIZE, row * BLOCK_SIZE))
+
+            if  pygame.Rect.colliderect(player.rect, level_transtion.Level_transtion(col, row).rect):
+                filename = "next_level.csv"
+                print("TRUE")
 
 
             col += 1
@@ -105,6 +114,7 @@ def draw():
     bullet_group.draw(surface)
     block_group.draw(surface)
     enemy_group.draw(surface)
+    level_transtion_group.draw(surface)
 
 
 
@@ -116,6 +126,7 @@ def update():
     block_group.update()
     bullet_group.update(block_group)
     enemy_group.update(block_group)
+    level_transtion_group.update()
 
 
 if __name__ == "__main__":

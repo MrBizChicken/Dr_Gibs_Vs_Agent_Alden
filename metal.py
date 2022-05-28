@@ -1,7 +1,7 @@
 from constants import *
 import pygame
 import random
-class Stone(pygame.sprite.Sprite):
+class Metal(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
 
@@ -10,7 +10,7 @@ class Stone(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.speed = 5
-        self.image = pygame.image.load("stone.png")
+        self.image = pygame.image.load("metal.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
