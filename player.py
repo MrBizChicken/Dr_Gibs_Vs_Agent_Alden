@@ -15,6 +15,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
         self.pd = 0
+        self.health = 50
     def update(self, block_group):
         self.key_input(block_group)
 

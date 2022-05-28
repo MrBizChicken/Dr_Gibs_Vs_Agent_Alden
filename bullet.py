@@ -1,6 +1,5 @@
 from constants import *
 import pygame
-import random
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y, dir):
         super().__init__()
@@ -20,8 +19,10 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self, block_group):
         self.rect = self.rect.move(self.dir[0] * self.speed, self.dir[1] * self.speed)
-        print(dir)
         self.collison(block_group)
+
+
+
 
     def collison(self, block_group):
         block = pygame.sprite.spritecollide(self, block_group, True)

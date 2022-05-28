@@ -5,6 +5,7 @@ import csv
 import stone
 import dirt
 import bullet
+import enemy
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -15,11 +16,10 @@ surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 player_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 block_group = pygame.sprite.Group()
-
+enemy_group = pygame.sprite.Group()
 
 
 player = player.Player()
-
 
 
 player_group.add(player)
@@ -50,6 +50,10 @@ def draw_level():
 
             if map[row][col] == "d":
                 block_group.add(dirt.Dirt(col * BLOCK_SIZE, row * BLOCK_SIZE))
+
+            if map[row][col] == "e":
+                enemy_group.add(enemy.Enemy(col * BLOCK_SIZE, row * BLOCK_SIZE))
+
 
             col += 1
 
@@ -100,6 +104,7 @@ def draw():
     player_group.draw(surface)
     bullet_group.draw(surface)
     block_group.draw(surface)
+    enemy_group.draw(surface)
 
 
 
@@ -110,7 +115,7 @@ def update():
     player_group.update(block_group)
     block_group.update()
     bullet_group.update(block_group)
-
+    enemy_group.update(block_group)
 
 
 if __name__ == "__main__":
