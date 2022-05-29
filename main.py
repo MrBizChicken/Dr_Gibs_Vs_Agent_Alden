@@ -59,9 +59,9 @@ def draw_level():
             if map[row][col] == "2":
                 level_transtion_group.add(level_transtion.Level_transtion(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
-            if  pygame.Rect.colliderect(player.rect, level_transtion.Level_transtion(col, row).rect):
-                filename = "next_level.csv"
-                print("TRUE")
+            # if  pygame.Rect.colliderect(player.rect, level_transtion.Level_transtion(col, row).rect):
+            #     filename = "next_level.csv"
+            #     print("TRUE")
 
 
             col += 1

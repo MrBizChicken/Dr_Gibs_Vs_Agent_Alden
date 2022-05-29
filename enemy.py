@@ -31,10 +31,4 @@ class Enemy(pygame.sprite.Sprite):
         elif self.rect.right == GAME_WIDTH:
             self.rect.x += self.direction
             self.direction = -1
-
-        elif block:
-            self.rect.x += self.direction
-            self.direction = 1
-        elif block:
-            self.rect.x += self.direction
-            self.direction = -1
+ction = -1
