@@ -8,6 +8,7 @@ import metal
 import bullet
 import make_level
 import crate
+import ammo_pickup
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -18,6 +19,7 @@ surface = pygame.display.set_mode((0, 0), screen_size)
 
 player_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
+ammo_pickup_group = pygame.sprite.Group()
 block_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
 crate_group = pygame.sprite.Group()
@@ -111,6 +113,8 @@ def draw():
 
 
     player_group.draw(surface)
+    ammo_pickup_group.draw(surface)
+
     bullet_group.draw(surface)
     block_group.draw(surface)
     enemy_group.draw(surface)
@@ -122,11 +126,13 @@ def draw():
 def update():
     solid_objects_group.add(block_group , enemy_group, crate_group)
     solid_objects_group.update(solid_objects_group, bullet_group)
-    player_group.update(solid_objects_group, bullet_group)
+    player_group.update(solid_objects_group, bullet_group, ammo_pickup_group)
     block_group.update(solid_objects_group, bullet_group)
-    bullet_group.update(solid_objects_group, bullet_group, crate_group)
+    bullet_group.update(solid_objects_group, bullet_group, crate_group, ammo_pickup_group)
     enemy_group.update(solid_objects_group, bullet_group)
     level_transtion_group.update()
+    ammo_pickup_group.update()
+
 
 
 
