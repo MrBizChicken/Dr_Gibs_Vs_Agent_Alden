@@ -1,16 +1,15 @@
 from constants import *
 import pygame
 import random
-class Metal(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+class Crate(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height):
         super().__init__()
 
-        self.width = 64
-        self.height = 64
+        self.width = width
+        self.height = height
         self.x = x
         self.y = y
-        self.speed = 5
-        self.image = pygame.image.load("metal.png")
+        self.image = pygame.image.load("crate.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 

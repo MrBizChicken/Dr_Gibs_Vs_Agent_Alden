@@ -1,36 +1,39 @@
 from constants import *
 import pygame
-import player
 import csv
 import stone
+import player
+import henchmen
 import metal
 import bullet
-import enemy
-import level_transtion
+import make_level
+import crate
 pygame.init()
 
 clock = pygame.time.Clock()
 pygame.mouse.set_visible(False)
-surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
+screen_size = pygame.FULLSCREEN
+surface = pygame.display.set_mode((0, 0), screen_size)
 
 
 player_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
 block_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
+crate_group = pygame.sprite.Group()
+solid_objects_group = pygame.sprite.Group()
 level_transtion_group = pygame.sprite.Group()
+make_level_group = pygame.sprite.Group()
 
-player = player.Player()
 
 
-player_group.add(player)
 
 
 
 map = []
-filename = 'test_map.csv'
-def get_csv_file_and_put_in_array():
 
+def get_csv_file_and_put_in_array():
+    filename = 'start_map.csv'
 
     with open(filename, 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -54,19 +57,22 @@ def draw_level():
                 block_group.add(metal.Metal(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
             if map[row][col] == "e":
-                enemy_group.add(enemy.Enemy(col * BLOCK_SIZE, row * BLOCK_SIZE))
+                enemy_group.add(henchmen.Henchmen(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
-            if map[row][col] == "2":
-                level_transtion_group.add(level_transtion.Level_transtion(col * BLOCK_SIZE, row * BLOCK_SIZE))
+            if map[row][col] == "p":
+                player_group.add(player.Player(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
-            # if  pygame.Rect.colliderect(player.rect, level_transtion.Level_transtion(col, row).rect):
-            #     filename = "next_level.csv"
-            #     print("TRUE")
+            if map[row][col] == "c":
+                crate_group.add(crate.Crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+
 
 
             col += 1
 
         row += 1
+
+
 
 
 draw_level()
@@ -91,42 +97,37 @@ def main():
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_q:
                     pygame.quit()
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_e:
-                    bullet_group.add(bullet.Bullet(player.rect.x - 20, player.rect.y - 4, player.pd))
-
-
 
         draw()
         update()
-        pygame.display.flip()
+
 
     pygame.quit()
 
 
 
-
 def draw():
-    surface.fill((200, 200, 200))
+    surface.fill((20, 20, 20))
 
 
     player_group.draw(surface)
     bullet_group.draw(surface)
     block_group.draw(surface)
     enemy_group.draw(surface)
-    level_transtion_group.draw(surface)
+    solid_objects_group.draw(surface)
 
-
-
-
+    pygame.display.flip()
 
 
 def update():
-    player_group.update(block_group)
-    block_group.update()
-    bullet_group.update(block_group)
-    enemy_group.update(block_group)
+    solid_objects_group.add(block_group , enemy_group, crate_group)
+    solid_objects_group.update(solid_objects_group, bullet_group)
+    player_group.update(solid_objects_group, bullet_group)
+    block_group.update(solid_objects_group, bullet_group)
+    bullet_group.update(solid_objects_group, bullet_group, crate_group)
+    enemy_group.update(solid_objects_group, bullet_group)
     level_transtion_group.update()
+
 
 
 if __name__ == "__main__":

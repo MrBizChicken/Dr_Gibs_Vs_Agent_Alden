@@ -1,83 +1,67 @@
 from constants import *
 import pygame
 import random
+import bullet
+import gun1
+from main_entity import Main_entity
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
+class Player(Main_entity):
+    def __init__(self, x, y, width, height):
+        super().__init__(x, y, width, height)
 
-        self.width = 64
-        self.height = 64
-        self.x = 90
-        self.y = 90
         self.speed = 5
         self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((255, 0, 0))
+        self.image.fill((0, 255, 0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
-        self.pd = 0
-    def update(self, block_group):
-        self.key_input()
-        self.collison(block_group)
+        self.direction  = pygame.math.Vector2()
+        self.bullet_size = self.width // 4
+        self.facing_direction = pygame.math.Vector2(1, 0)
+        self.can_shoot = True
+        self.gun = gun1.Gun1()
+
+    def update(self, solid_objects_group, bullet_group):
+        self.key_input(solid_objects_group, bullet_group)
+        self.move(solid_objects_group, self.speed)
+
+        if pygame.time.get_ticks() % self.gun.shoot_speed == 0:
+            self.can_shoot = True;
 
 
 
-    def key_input(self):
+    def key_input(self, solid_objects_group, bullet_group):
 
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_r]:
-            self.rect.x = 0
-            self.rect.y = 0
+            self.rect.x = 90
+            self.rect.y = 90
+
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            self.direction.y = -1
+            self.facing_direction = pygame.math.Vector2(0, -1)
+        elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.direction.y = 1
+            self.facing_direction = pygame.math.Vector2(0, 1)
+        else:
+            self.direction.y = 0
+
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.direction.x = -1
+            self.facing_direction = pygame.math.Vector2(-1, 0)
+        elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.direction.x = 1
+            self.facing_direction = pygame.math.Vector2(1, 0)
+        else:
+            self.direction.x = 0
+
+        if keys[pygame.K_e]:
+            self.shoot(bullet_group)
 
 
+    def shoot(self, bullet_group):
 
-        if keys[pygame.K_LEFT]:
-            if self.rect.x > 0:
-                self.rect.x += -self.speed
-
-            self.pd = (-1, 0)
-
-        if keys[pygame.K_RIGHT]:
-            if self.rect.right < GAME_WIDTH:
-                self.rect.x += self.speed
-
-            self.pd = (1, 0)
-
-
-        if keys[pygame.K_UP]:
-
-            if self.rect.y > 0:
-                self.rect.y += -self.speed
-
-            self.pd = (0, -1)
-
-
-
-        if keys[pygame.K_DOWN]:
-            if self.rect.bottom < GAME_HEIGHT:
-                self.rect.y += self.speed
-
-            self.pd = (0, 1)
-
-
-    def collison(self, block_group):
-        for block in block_group:
-            collide = pygame.sprite.Rect.colliderect(self.rect, block.rect)
-
-            if collide:
-                #right collison
-                if self.pd[0] > 0:
-                    self.rect.right = block.rect.left
-
-                #left collison
-                if self.pd[0] < 0:
-                    self.rect.left = block.rect.right
-
-                #bottom collison
-                if self.pd[1] > 0:
-                    self.rect.bottom = block.rect.top
-
-                #top collison
-                if self.pd[1] < 0:
-                    self.rect.top = block.rect.bottom
+        if self.can_shoot and self.gun.ammo > 0:
+            self.can_shoot = False;
+            bullet_group.add(bullet.Bullet(self.rect.center, self.bullet_size, self.bullet_size, self.facing_direction))
+            # self.gun.ammo -= 1

@@ -1,28 +1,27 @@
 from constants import *
 import pygame
-class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y, dir):
-        super().__init__()
+from main_entity import Main_entity
 
-        self.width = 20
-        self.height = 20
-        self.x = x
-        self.y = y
+class Bullet(Main_entity):
+    def __init__(self, rect, width, height, dir):
+        super().__init__(rect[0], rect[1], width, height)
+
+
         self.speed = 10
         self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((251, 242, 54))
+        self.image.fill((200, 200, 200))
         self.rect = pygame.Rect(self.image.get_rect())
-        self.rect.topleft = (self.x, self.y)
+        self.rect.center = (self.x, self.y)
         self.dir = dir
+        print(pygame.sprite.Group(self))
 
-        print(self.dir)
-
-    def update(self, block_group):
-        self.rect = self.rect.move(self.dir[0] * self.speed, self.dir[1] * self.speed)
-        self.collison(block_group)
-
+    def update(self, solid_objects_group, bullet_group, crate_group):
+        self.rect = self.rect.move(self.dir.x * self.speed, self.dir.y * self.speed)
+        self.collide(solid_objects_group, crate_group)
 
 
-
-    def collison(self, block_group):
-        block = pygame.sprite.spritecollide(self, block_group, True)
+    def collide(self, solid_objects_group, crate_group):
+        if pygame.sprite.spritecollide(self, crate_group, True):
+            self.kill()
+        if pygame.sprite.spritecollide(self, solid_objects_group, False):
+            self.kill()

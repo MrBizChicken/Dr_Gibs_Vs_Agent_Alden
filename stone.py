@@ -14,5 +14,5 @@ class Stone(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
-    def update(self):
+    def update(self, solid_objects_group, bullet_group):
         pass
