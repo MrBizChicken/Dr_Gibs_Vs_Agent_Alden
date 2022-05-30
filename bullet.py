@@ -13,7 +13,6 @@ class Bullet(Main_entity):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.center = (self.x, self.y)
         self.dir = dir
-        print(pygame.sprite.Group(self))
 
     def update(self, solid_objects_group, bullet_group, crate_group, ammo_pickup_group):
         self.rect = self.rect.move(self.dir.x * self.speed, self.dir.y * self.speed)

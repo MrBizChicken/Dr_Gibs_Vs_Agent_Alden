@@ -23,11 +23,14 @@ class Player(Main_entity):
     def update(self, solid_objects_group, bullet_group, ammo_pickup_group):
         self.key_input(solid_objects_group, bullet_group, ammo_pickup_group)
         self.move(solid_objects_group, self.speed)
-
+        print(self.gun.ammo)
         if pygame.time.get_ticks() % self.gun.shoot_speed == 0:
             self.can_shoot = True;
 
+        if pygame.sprite.spritecollide(self, ammo_pickup_group, True):
 
+            self.gun.ammo += 5
+            print("true")
 
     def key_input(self, solid_objects_group, bullet_group, ammo_pickup_group):
 
@@ -65,8 +68,3 @@ class Player(Main_entity):
             self.can_shoot = False;
             bullet_group.add(bullet.Bullet(self.rect.center, self.bullet_size, self.bullet_size, self.facing_direction))
             self.gun.ammo -= 1
-            for a in ammo_pickup_group:
-                if pygame.sprite.spritecollide(self, a, True):
-
-                    self.gun.ammo += 5
-                    print(self.gun.ammo)
