@@ -128,7 +128,7 @@ def update():
     solid_objects_group.update(solid_objects_group, bullet_group)
     player_group.update(solid_objects_group, bullet_group, ammo_pickup_group)
     block_group.update(solid_objects_group, bullet_group)
-    bullet_group.update(solid_objects_group, bullet_group, crate_group, ammo_pickup_group)
+    bullet_group.update(solid_objects_group, bullet_group, crate_group, ammo_pickup_group, enemy_group)
     enemy_group.update(solid_objects_group, bullet_group)
     level_transtion_group.update()
     ammo_pickup_group.update()

@@ -23,7 +23,7 @@ class Player(Main_entity):
     def update(self, solid_objects_group, bullet_group, ammo_pickup_group):
         self.key_input(solid_objects_group, bullet_group, ammo_pickup_group)
         self.move(solid_objects_group, self.speed)
-        print(self.gun.ammo)
+
         if pygame.time.get_ticks() % self.gun.shoot_speed == 0:
             self.can_shoot = True;
 
