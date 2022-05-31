@@ -31,9 +31,12 @@ class Bullet(Main_entity):
         for h in enemy_group:
             if pygame.Rect.colliderect(self.rect, h.rect):
                 h.hurt()
-                if h.health == 0:
+                if h.health <= 0:
                     h.kill()
 
-        for h in enemy_group:
-            if h.health <= 0:
-                h.kill()
+
+        for g in gun_crate_group:
+            if pygame.Rect.colliderect(self.rect, g.rect):
+                g.damage()
+                if g.health <= 0:
+                    g.kill()
