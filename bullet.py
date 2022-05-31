@@ -15,12 +15,12 @@ class Bullet(Main_entity):
         self.dir = dir
         print(pygame.sprite.Group(self))
 
-    def update(self, solid_objects_group, bullet_group, crate_group):
+    def update(self, solid_objects_group, bullet_group, crate_group, gun_crate_group):
         self.rect = self.rect.move(self.dir.x * self.speed, self.dir.y * self.speed)
-        self.collide(solid_objects_group, crate_group)
+        self.collide(solid_objects_group, crate_group, gun_crate_group)
 
 
-    def collide(self, solid_objects_group, crate_group):
+    def collide(self, solid_objects_group, crate_group, gun_crate_group):
         if pygame.sprite.spritecollide(self, crate_group, True):
             self.kill()
         if pygame.sprite.spritecollide(self, solid_objects_group, False):

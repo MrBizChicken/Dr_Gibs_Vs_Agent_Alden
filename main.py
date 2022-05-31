@@ -8,6 +8,9 @@ import metal
 import bullet
 import make_level
 import crate
+import gun_crate
+
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -21,6 +24,8 @@ bullet_group = pygame.sprite.Group()
 block_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
 crate_group = pygame.sprite.Group()
+gun_crate_group = pygame.sprite.Group()
+
 solid_objects_group = pygame.sprite.Group()
 level_transtion_group = pygame.sprite.Group()
 make_level_group = pygame.sprite.Group()
@@ -64,6 +69,10 @@ def draw_level():
 
             if map[row][col] == "c":
                 crate_group.add(crate.Crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+            if map[row][col] == "g":
+                crate_group.add(gun_crate.Gun_crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
 
 
 
@@ -116,15 +125,16 @@ def draw():
     enemy_group.draw(surface)
     solid_objects_group.draw(surface)
 
+
     pygame.display.flip()
 
 
 def update():
-    solid_objects_group.add(block_group , enemy_group, crate_group)
+    solid_objects_group.add(block_group , enemy_group, crate_group, gun_crate_group)
     solid_objects_group.update(solid_objects_group, bullet_group)
     player_group.update(solid_objects_group, bullet_group)
     block_group.update(solid_objects_group, bullet_group)
-    bullet_group.update(solid_objects_group, bullet_group, crate_group)
+    bullet_group.update(solid_objects_group, bullet_group, crate_group, gun_crate_group)
     enemy_group.update(solid_objects_group, bullet_group)
     level_transtion_group.update()
 
