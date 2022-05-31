@@ -5,7 +5,7 @@ class Gun1(Main_gun_entity):
     def __init__(self):
 
         self.shoot_speed = 100
-        self.ammo_size = 10
+        self.ammo_size = 50
         self.damage = 10
         self.bullet_speed = 10
         self.ammo = self.ammo_size
