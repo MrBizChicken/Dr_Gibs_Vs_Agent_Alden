@@ -14,12 +14,13 @@ class Bullet(Main_entity):
         self.rect.center = (self.x, self.y)
         self.dir = dir
 
-    def update(self, solid_objects_group, bullet_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group):
+    def update(self, solid_objects_group, bullet_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group):
         self.rect = self.rect.move(self.dir.x * self.speed, self.dir.y * self.speed)
-        self.collide(solid_objects_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group)
+        self.collide(solid_objects_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group)
 
 
-    def collide(self, solid_objects_group, crate_group, ammo_pickup_group , enemy_group, gun_crate_group):
+    def collide(self, solid_objects_group, crate_group, ammo_pickup_group , enemy_group, gun_crate_group, gun2_pickup_group, player_group):
+
         if pygame.sprite.spritecollide(self, crate_group, True):
             self.kill()
             for c in crate_group:
@@ -30,13 +31,13 @@ class Bullet(Main_entity):
 
         for h in enemy_group:
             if pygame.Rect.colliderect(self.rect, h.rect):
-                h.hurt()
+                h.hurt(player_group)
                 if h.health <= 0:
                     h.kill()
 
 
         for g in gun_crate_group:
             if pygame.Rect.colliderect(self.rect, g.rect):
-                g.damage()
+                g.damage(gun2_pickup_group)
                 if g.health <= 0:
                     g.kill()

@@ -74,7 +74,7 @@ def draw_level():
                 crate_group.add(crate.Crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
             if map[row][col] == "g":
-                crate_group.add(gun_crate.Gun_crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                gun_crate_group.add(gun_crate.Gun_crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
 
 
@@ -137,11 +137,13 @@ def draw():
 
 def update():
     solid_objects_group.add(block_group , enemy_group, crate_group, gun_crate_group)
-    solid_objects_group.update(solid_objects_group, bullet_group)
-    player_group.update(solid_objects_group, bullet_group, ammo_pickup_group, gun2_pickup_group)
-    block_group.update(solid_objects_group, bullet_group)
-    bullet_group.update(solid_objects_group, bullet_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group)
-    enemy_group.update(solid_objects_group, bullet_group)
+    solid_objects_group.update(solid_objects_group ,bullet_group, player_group)
+    crate_group.update(solid_objects_group, bullet_group, player_group)
+    gun_crate_group.update(solid_objects_group, player_group, bullet_group)
+    player_group.update(solid_objects_group, bullet_group, ammo_pickup_group, gun2_pickup_group, player_group)
+    block_group.update(solid_objects_group, bullet_group, player_group)
+    bullet_group.update(solid_objects_group, bullet_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group)
+    enemy_group.update(solid_objects_group, bullet_group, player_group)
     level_transtion_group.update()
     ammo_pickup_group.update()
     gun2_pickup_group.update()

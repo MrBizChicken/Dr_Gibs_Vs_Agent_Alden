@@ -19,9 +19,11 @@ class Player(Main_entity):
         self.bullet_size = self.width // 4
         self.facing_direction = pygame.math.Vector2(1, 0)
         self.can_shoot = True
+        self.can_swicth2 = False
+
         self.gun = gun1.Gun1()
 
-    def update(self, solid_objects_group, bullet_group, ammo_pickup_group, gun2_pickup_group):
+    def update(self, solid_objects_group, bullet_group, ammo_pickup_group, gun2_pickup_group, player_group):
         self.key_input(solid_objects_group, bullet_group, ammo_pickup_group)
         self.move(solid_objects_group, self.speed)
 
@@ -36,6 +38,8 @@ class Player(Main_entity):
         if pygame.sprite.spritecollide(self, gun2_pickup_group, True):
 
             self.gun = gun2.Gun2()
+            self.can_swicth2 = True
+
 
     def key_input(self, solid_objects_group, bullet_group, ammo_pickup_group):
 
@@ -66,6 +70,15 @@ class Player(Main_entity):
         if keys[pygame.K_e]:
             self.shoot(bullet_group, ammo_pickup_group)
 
+        if keys[pygame.K_1]:
+            self.gun = gun1.Gun1()
+            print("gun1")
+
+
+        if keys[pygame.K_2]:
+            if self.can_swicth2 == True:
+                self.gun = gun2.Gun2()
+                print("gun2")
 
     def shoot(self, bullet_group, ammo_pickup_group):
 

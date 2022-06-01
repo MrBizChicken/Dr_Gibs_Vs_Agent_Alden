@@ -3,6 +3,7 @@ import pygame
 import random as rand
 from enemy_entity import Enemy_entity
 import gun1
+import gun2
 class Henchmen(Enemy_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
@@ -15,16 +16,23 @@ class Henchmen(Enemy_entity):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
         self.health = 5
-        self.gun1 = gun1.Gun1()
+        self.gun = gun1.Gun1()
+
+
 
         # self.direction = self.random_vector2()
 
 
 
-    def update(self, solid_objects_group, bullet_group):
+    def update(self, solid_objects_group, bullet_group ,player_group):
 
-        print(self.health)
         self.reverse_direction_move(solid_objects_group, self.speed)
 
-    def hurt(self):
-        self.health -= self.gun1.damage
+    def hurt(self, player_group):
+        for p in player_group:
+            if p.can_swicth2 == True:
+                self.gun = gun2.Gun2()
+
+            if p.can_swicth2 == False:
+                self.gun = gun1.Gun1()
+        self.health -= self.gun.damage

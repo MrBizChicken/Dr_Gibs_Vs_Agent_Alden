@@ -16,7 +16,7 @@ class Crate(pygame.sprite.Sprite):
         self.random_drop = random.randint(0, 1)
 
 
-    def update(self, solid_objects_group, bullet_group):
+    def update(self, solid_objects_group, bullet_group ,player_group):
         pass
     def drop_ammo(self, ammo_pickup_group):
         if self.random_drop == 1:
