@@ -29,10 +29,14 @@ class Henchmen(Enemy_entity):
         self.reverse_direction_move(solid_objects_group, self.speed)
 
     def hurt(self, player_group):
+        keys = pygame.key.get_pressed()
+
         for p in player_group:
-            if p.can_swicth2 == True:
+            if keys[pygame.K_2] and p.can_swicth2 == True:
+
                 self.gun = gun2.Gun2()
 
-            if p.can_swicth2 == False:
+            if keys[pygame.K_1]:
                 self.gun = gun1.Gun1()
+
         self.health -= self.gun.damage
