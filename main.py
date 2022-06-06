@@ -1,13 +1,13 @@
 from constants import *
 import pygame
 import make_level
-
 pygame.init()
 clock = pygame.time.Clock()
 pygame.mouse.set_visible(False)
 make_level = make_level.Make_levels()
 
 def main():
+    level = 0
     running = True
 
     while running:
@@ -21,9 +21,11 @@ def main():
                 if event.key == pygame.K_q:
                     pygame.quit()
 
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_f:
-                    make_level.load_level(1)
+            if pygame.sprite.groupcollide(make_level.player_group, make_level.door_group, False, False):
+
+                level = level + 1
+                print(level)
+                make_level.load_level(level)
 
 
         make_level.draw()

@@ -31,7 +31,7 @@ class Make_levels(pygame.sprite.Sprite):
         self.screen_size = pygame.FULLSCREEN
         self.surface = pygame.display.set_mode((0, 0), self.screen_size)
         self.map = []
-        self.level = ["LEVEL1.csv", "LEVEL2.csv"]
+        self.level = ["LEVEL1.csv", "LEVEL2.csv", "LEVEL3.csv"]
         self.level_num = 1
 
         self.load_level(0)
