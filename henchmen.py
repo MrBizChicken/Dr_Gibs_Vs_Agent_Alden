@@ -8,7 +8,7 @@ class Henchmen(Enemy_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
 
-        self.speed = 2
+        self.speed = 3
         self.change_direction_timer = 2 #SECONDS
 
         self.image = pygame.Surface([self.width, self.height])

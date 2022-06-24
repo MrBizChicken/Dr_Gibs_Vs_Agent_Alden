@@ -12,6 +12,8 @@ import gun_crate
 import ammo_pickup
 import gun2_pickup
 import door
+import boss1
+pygame.init()
 
 class Make_levels(pygame.sprite.Sprite):
     def __init__(self):
@@ -26,16 +28,38 @@ class Make_levels(pygame.sprite.Sprite):
         self.gun2_pickup_group = pygame.sprite.Group()
         self.solid_objects_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
+        self.boss1_group = pygame.sprite.Group()
+        self.spritesheet = pygame.image.load(SPRITESHEET).convert()
+        self.y_sprite_sheet_index = 0
+        self.frame = 0
+        self.max_frame = (self.spritesheet.get_width() // BLOCK_SIZE) - 1
 
         self.screen_size = pygame.FULLSCREEN
         self.surface = pygame.display.set_mode((0, 0), self.screen_size)
         self.map = []
-        self.level = ["LEVEL1.csv", "LEVEL2.csv", "LEVEL3.csv"]
+        self.level = ["LEVEL1.csv", "LEVEL2.csv", "LEVEL3.csv", "LEVEL4.csv", "LEVEL5.csv", "LEVEL6.csv", "LEVEL7.csv", "LEVEL8.csv", "LEVEL9.csv", "LEVEL10.csv", "LEVEL11.csv", "LEVEL12.csv"]
+        self.image = self.get_image_from_sprite_sheet(0, self.y_sprite_sheet_index)
+
+        self.speed = 0.1
+
+
         self.level_num = 0
-        self.states = ["start", "running", "paused"]
+        self.states = ["story", "start", "running", "paused"]
         self.state = self.states[0]
         self.running = True
         self.load_level(self.level_num)
+        self.background_image0 = pygame.image.load("0.png").convert()
+        self.background_image1 = pygame.image.load("1.png").convert()
+        self.background_image2 = pygame.image.load("2.png").convert()
+        self.background_image3 = pygame.image.load("3.png").convert()
+        self.background_image4 = pygame.image.load("2.png").convert()
+        self.wait = 3000
+        self.timer = pygame.time.get_ticks()
+
+
+
+
+
 
 
 
@@ -56,7 +80,7 @@ class Make_levels(pygame.sprite.Sprite):
                 if event.key == pygame.K_q:
                     return True
 
-    
+
 
 
                 if event.key == pygame.K_p:
@@ -89,6 +113,7 @@ class Make_levels(pygame.sprite.Sprite):
         self.gun2_pickup_group.empty()
         self.solid_objects_group.empty()
         self.door_group.empty()
+        self.boss1_group.empty()
         self.load_level(self.level_num)
     def get_list(self, level):
         map_list = ""
@@ -123,6 +148,7 @@ class Make_levels(pygame.sprite.Sprite):
         self.gun2_pickup_group.empty()
         self.solid_objects_group.empty()
         self.door_group.empty()
+        self.boss1_group.empty()
 
         map_tiles = self.get_list(self.level[level])
         for row in range(len(map_tiles)):
@@ -152,6 +178,10 @@ class Make_levels(pygame.sprite.Sprite):
                 if item == "d":
                     self.door_group.add(door.Door(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
+                if item == "b1":
+                    self.boss1_group.add(boss1.Boss1(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+
 
 
 
@@ -165,7 +195,23 @@ class Make_levels(pygame.sprite.Sprite):
 
 
         if self.state == "start":
-            self.surface.fill((100, 100, 255))#background
+
+
+            if self.state == "story":
+                self.surface.blit(self.image, [0, 0])
+                # return image
+                # self.frame += self.speed
+                #
+                # if self.frame > self.max_frame:
+                #     self.frame = 0
+                #
+                # self.image = self.get_image_from_sprite_sheet(0, round(0) * 256)
+                #
+
+
+
+
+
 
         elif self.state == "running":
 
@@ -186,6 +232,8 @@ class Make_levels(pygame.sprite.Sprite):
 
             self.door_group.draw(self.surface)
 
+            self.boss1_group.draw(self.surface)
+
         elif self.state == "paused":
             self.surface.fill((255, 100, 100))#background
 
@@ -198,6 +246,9 @@ class Make_levels(pygame.sprite.Sprite):
         if self.state == "start":
             pass
 
+        if self.state == "story":
+            pass
+
 
         elif self.state == "running":
             self.solid_objects_group.add(self.block_group , self.enemy_group, self.crate_group, self.gun_crate_group)
@@ -206,10 +257,12 @@ class Make_levels(pygame.sprite.Sprite):
             self.gun_crate_group.update(self.solid_objects_group, self.player_group, self.bullet_group)
             self.player_group.update(self.solid_objects_group, self.bullet_group, self.ammo_pickup_group, self.gun2_pickup_group, self.player_group)
             self.block_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
-            self.bullet_group.update(self.solid_objects_group, self.bullet_group, self.crate_group, self.ammo_pickup_group, self.enemy_group, self.gun_crate_group, self.gun2_pickup_group, self.player_group)
+            self.bullet_group.update(self.solid_objects_group, self.bullet_group, self.crate_group, self.ammo_pickup_group, self.enemy_group, self.gun_crate_group, self.gun2_pickup_group, self.player_group, self.boss1_group)
             self.enemy_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
             self.ammo_pickup_group.update()
             self.gun2_pickup_group.update()
+            self.boss1_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
+
 
 
         elif self.state == "paused":

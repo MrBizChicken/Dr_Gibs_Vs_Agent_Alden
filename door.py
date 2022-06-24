@@ -12,7 +12,7 @@ class Door(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((255, 0, 0))
+        self.image.fill((50, 0, 0))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
