@@ -10,7 +10,7 @@ class Crate(pygame.sprite.Sprite):
         self.height = height
         self.x = x
         self.y = y
-        self.image = pygame.image.load("crate.png")
+        self.image = pygame.image.load("images/crate.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
         self.random_drop = random.randint(0, 1)
