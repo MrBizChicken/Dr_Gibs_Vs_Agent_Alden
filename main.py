@@ -1,13 +1,20 @@
 from constants import *
 import pygame
-import make_level
-pygame.init()
-clock = pygame.time.Clock()
-pygame.mouse.set_visible(False)
-make_level = make_level.Make_levels()
+import states_manager
+
+
+
 
 def main():
-    level = 0
+    pygame.init()
+    clock = pygame.time.Clock()
+    pygame.mouse.set_visible(False)
+    screen_size = pygame.FULLSCREEN
+    surface = pygame.display.set_mode((COLS * BLOCK_SIZE, ROWS * BLOCK_SIZE))
+
+    states_manager_obj = states_manager.States_manager()
+
+
     running = True
 
     while running:
@@ -23,9 +30,9 @@ def main():
 
 
 
-        make_level.draw()
-        make_level.events()
-        make_level.update()
+        states_manager_obj.draw(surface)
+        states_manager_obj.events()
+        states_manager_obj.update()
 
 
 

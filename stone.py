@@ -10,7 +10,7 @@ class Stone(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.speed = 5
-        self.image = pygame.image.load("stone.png")
+        self.image = pygame.image.load("images/stone.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 

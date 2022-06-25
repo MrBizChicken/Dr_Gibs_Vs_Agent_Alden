@@ -10,7 +10,7 @@ class Metal(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.speed = 5
-        self.image = pygame.image.load("metal.png")
+        self.image = pygame.image.load("images/metal.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
