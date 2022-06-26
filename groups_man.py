@@ -25,6 +25,7 @@ class Groups_man:
 
     def update(self):
         self.main_group = self.update_main_group()
+        self.solid_objects_group.empty()
         self.solid_objects_group.add(self.block_group , self.enemy_group, self.crate_group, self.gun_crate_group)
         self.solid_objects_group.update(self)
         self.crate_group.update(self)

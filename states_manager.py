@@ -30,6 +30,8 @@ class States_manager():
 
         self.map = []
 
+        ml = make_level.Make_levels()
+        ml.load_level(ml.level_num, self.groups_manager)
 
     def events(self):
 
@@ -70,7 +72,6 @@ class States_manager():
             self.surface.fill((63, 23, 76))
         if self.state == "running":
             self.groups_manager.get_drawing_group().draw(self.surface)
-            make_level.Make_levels().load_level(make_level.Make_levels().level_num, self.groups_manager)
         if self.state == "paused":
             self.surface.fill((8, 98, 23))
         if self.state == "dead":
@@ -79,6 +80,7 @@ class States_manager():
             pass
 
         pygame.display.flip()
+
 
 
 

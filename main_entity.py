@@ -13,7 +13,7 @@ class Main_entity(pygame.sprite.Sprite):
 		self.image.fill((255, 0, 0))
 		self.rect = pygame.Rect(self.image.get_rect())
 		self.rect.topleft = (self.x, self.y)
-		self.direction  = pygame.math.Vector2()
+		self.direction  = pygame.math.Vector2(0, 0)
 
 
 
