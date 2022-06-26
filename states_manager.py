@@ -30,8 +30,8 @@ class States_manager():
 
         self.map = []
 
-        ml = make_level.Make_levels()
-        ml.load_level(ml.level_num, self.groups_manager)
+        self.ml = make_level.Make_levels()
+        self.ml.load_level(self.ml.level_num, self.groups_manager)
 
     def events(self):
 
@@ -91,6 +91,7 @@ class States_manager():
             pass
         if self.state == "running":
             self.groups_manager.update()
+            self.ml.collide_door(self.groups_manager)
 
 
         if self.state == "paused":

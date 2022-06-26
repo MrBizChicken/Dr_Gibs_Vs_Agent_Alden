@@ -11,13 +11,13 @@ class Gun_crate(pygame.sprite.Sprite):
         self.height = height
         self.x = x
         self.y = y
-        self.image = pygame.image.load("gun_crate.png")
+        self.image = pygame.image.load("images/gun_crate.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
         self.health = 10
         self.gun1 = gun1.Gun1()
 
-    def update(self, solid_objects_group, player_group, bullet_group):
+    def update(self, main_group):
         pass
 
     def damage(self, gun2_pickup_group):

@@ -23,25 +23,10 @@ class Make_levels():
         self.level_num = 0
 
         # self.load_level(self.level_num)
-                # if pygame.sprite.groupcollide(self.player_group, self.door_group, False, False):
-                #
-                  #     self.level_num = self.level_num + 1
-                #     self.clear_level()
 
 
-    def clear_level(self):
-        self.player_group.empty()
-        self.bullet_group.empty()
-        self.ammo_pickup_group.empty()
-        self.block_group.empty()
-        self.enemy_group.empty()
-        self.crate_group.empty()
-        self.gun_crate_group.empty()
-        self.gun2_pickup_group.empty()
-        self.solid_objects_group.empty()
-        self.door_group.empty()
-        self.boss1_group.empty()
-        self.load_level(self.level_num)
+
+
 
 
 
@@ -123,3 +108,38 @@ class Make_levels():
 
                 if item == "b1":
                     boss1_group.add(boss1.Boss1(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+
+
+    def clear_level(self, main_group):
+        block_group = main_group.block_group
+        enemy_group = main_group.enemy_group
+        player_group = main_group.player_group
+        door_group = main_group.door_group
+        crate_group = main_group.crate_group
+        gun_crate_group = main_group.gun_crate_group
+        boss1_group = main_group.boss1_group
+        bullet_group = main_group.bullet_group
+        ammo_pickup_group = main_group.ammo_pickup_group
+        gun2_pickup_group = main_group.gun2_pickup_group
+        solid_objects_group = main_group.solid_objects_group
+
+        player_group.empty()
+        bullet_group.empty()
+        ammo_pickup_group.empty()
+        block_group.empty()
+        enemy_group.empty()
+        crate_group.empty()
+        gun_crate_group.empty()
+        gun2_pickup_group.empty()
+        solid_objects_group.empty()
+        door_group.empty()
+        self.load_level(self.level_num, main_group)
+
+    def collide_door(self, main_group):
+        player_group = main_group.player_group
+        door_group = main_group.door_group
+        if pygame.sprite.groupcollide(player_group, door_group, False, False):
+
+            self.level_num = self.level_num + 1
+            self.clear_level(main_group)
