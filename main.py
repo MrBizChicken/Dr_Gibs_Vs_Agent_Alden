@@ -30,7 +30,7 @@ def main():
 
 
 
-        states_manager_obj.draw(surface)
+        states_manager_obj.draw()
         states_manager_obj.events()
         states_manager_obj.update()
 

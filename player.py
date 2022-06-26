@@ -17,16 +17,21 @@ class Player(Main_entity):
         self.rect.topleft = (self.x, self.y)
         self.direction  = pygame.math.Vector2()
         self.bullet_size = self.width // 4
-        self.facing_direction = pygame.math.Vector2(1, 0)
+        self.facing_direction = pygame.math.Vector2(0, 0)
         self.can_shoot = True
         self.can_swicth2 = False
 
         self.gun = gun1.Gun1()
 
-    def update(self, solid_objects_group, bullet_group, ammo_pickup_group, gun2_pickup_group, player_group):
+    def update(self, main_group):
+        solid_objects_group = main_group.solid_objects_group
+        bullet_group = main_group.bullet_group
+        ammo_pickup_group = main_group.ammo_pickup_group
+        gun2_pickup_group = main_group.gun2_pickup_group
+
         self.key_input(solid_objects_group, bullet_group, ammo_pickup_group)
         self.move(solid_objects_group, self.speed)
-
+        print(self.speed)
         if pygame.time.get_ticks() % self.gun.shoot_speed == 0:
             self.can_shoot = True;
 
@@ -55,17 +60,16 @@ class Player(Main_entity):
         elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.direction.y = 1
             self.facing_direction = pygame.math.Vector2(0, 1)
-        else:
-            self.direction.y = 0
+
 
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.direction.x = -1
+
             self.facing_direction = pygame.math.Vector2(-1, 0)
         elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.direction.x = 1
             self.facing_direction = pygame.math.Vector2(1, 0)
-        else:
-            self.direction.x = 0
+
 
         if keys[pygame.K_e]:
             self.shoot(bullet_group, ammo_pickup_group)

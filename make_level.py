@@ -17,28 +17,15 @@ import boss1
 
 class Make_levels():
     def __init__(self):
-        self.player_group = pygame.sprite.Group()
-        self.bullet_group = pygame.sprite.Group()
-        self.ammo_pickup_group = pygame.sprite.Group()
-        self.block_group = pygame.sprite.Group()
-        self.enemy_group = pygame.sprite.Group()
-        self.crate_group = pygame.sprite.Group()
-        self.gun_crate_group = pygame.sprite.Group()
-        self.gun2_pickup_group = pygame.sprite.Group()
-        self.solid_objects_group = pygame.sprite.Group()
-        self.door_group = pygame.sprite.Group()
-        self.boss1_group = pygame.sprite.Group()
 
-        self.map = []
         self.level = LEVELS
 
         self.level_num = 0
 
-        self.load_level(self.level_num)
-
+        # self.load_level(self.level_num)
                 # if pygame.sprite.groupcollide(self.player_group, self.door_group, False, False):
                 #
-                #     self.level_num = self.level_num + 1
+                  #     self.level_num = self.level_num + 1
                 #     self.clear_level()
 
 
@@ -80,18 +67,30 @@ class Make_levels():
             return False
         return True
 
-    def load_level(self, level):
-        self.player_group.empty()
-        self.bullet_group.empty()
-        self.ammo_pickup_group.empty()
-        self.block_group.empty()
-        self.enemy_group.empty()
-        self.crate_group.empty()
-        self.gun_crate_group.empty()
-        self.gun2_pickup_group.empty()
-        self.solid_objects_group.empty()
-        self.door_group.empty()
-        self.boss1_group.empty()
+    def load_level(self, level, main_group):
+        block_group = main_group.block_group
+        enemy_group = main_group.enemy_group
+        player_group = main_group.player_group
+        door_group = main_group.door_group
+        crate_group = main_group.crate_group
+        gun_crate_group = main_group.gun_crate_group
+        boss1_group = main_group.boss1_group
+        bullet_group = main_group.bullet_group
+        ammo_pickup_group = main_group.ammo_pickup_group
+        gun2_pickup_group = main_group.gun2_pickup_group
+        solid_objects_group = main_group.solid_objects_group
+        player_group.empty()
+        bullet_group.empty()
+        ammo_pickup_group.empty()
+        block_group.empty()
+        enemy_group.empty()
+        crate_group.empty()
+        gun_crate_group.empty()
+        gun2_pickup_group.empty()
+        solid_objects_group.empty()
+        door_group.empty()
+        boss1_group.empty()
+
 
         map_tiles = self.get_list(self.level[level])
         for row in range(len(map_tiles)):
@@ -100,26 +99,27 @@ class Make_levels():
 
 
                 if item == "s":
-                    self.block_group.add(stone.Stone(col * BLOCK_SIZE, row * BLOCK_SIZE))
+                    block_group.add(stone.Stone(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
 
                 if item == "m":
-                    self.block_group.add(metal.Metal(col * BLOCK_SIZE, row * BLOCK_SIZE))
+                    block_group.add(metal.Metal(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
                 if item == "e":
-                    self.enemy_group.add(henchmen.Henchmen(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                    enemy_group.add(henchmen.Henchmen(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
                 if item == "p":
-                    self.player_group.add(player.Player(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+                    player_group.add(player.Player(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
                 if item == "c":
-                    self.crate_group.add(crate.Crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                    crate_group.add(crate.Crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
                 if item == "g":
-                    self.gun_crate_group.add(gun_crate.Gun_crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                    gun_crate_group.add(gun_crate.Gun_crate(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
                 if item == "d":
-                    self.door_group.add(door.Door(col * BLOCK_SIZE, row * BLOCK_SIZE))
+                    door_group.add(door.Door(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
                 if item == "b1":
-                    self.boss1_group.add(boss1.Boss1(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+                    boss1_group.add(boss1.Boss1(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))

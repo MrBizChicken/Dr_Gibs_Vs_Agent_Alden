@@ -18,8 +18,6 @@ class Main_entity(pygame.sprite.Sprite):
 
 
 	def collison(self, block_group, dir):
-		# for block in block_group:
-		# 	collide = pygame.sprite.Rect.colliderect(self.rect, block.rect)
 
 		if dir == "h": #horizontal
 			for sprite in block_group:

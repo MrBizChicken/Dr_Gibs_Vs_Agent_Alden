@@ -13,23 +13,17 @@ import ammo_pickup
 import gun2_pickup
 import door
 import intro
-
+import make_level
+import groups_man
 class States_manager():
     def __init__(self):
-        self.player_group = pygame.sprite.Group()
-        self.bullet_group = pygame.sprite.Group()
-        self.ammo_pickup_group = pygame.sprite.Group()
-        self.block_group = pygame.sprite.Group()
-        self.enemy_group = pygame.sprite.Group()
-        self.crate_group = pygame.sprite.Group()
-        self.gun_crate_group = pygame.sprite.Group()
-        self.gun2_pickup_group = pygame.sprite.Group()
-        self.solid_objects_group = pygame.sprite.Group()
-        self.door_group = pygame.sprite.Group()
+        self.groups_manager = groups_man.Groups_man()
         self.states = ["intro", "start", "running", "paused", "dead", "game_over"]
-        self.state = self.states[0]
+        self.state = self.states[2]
         self.intro_group = pygame.sprite.Group()
         self.intro_group.add(intro.Intro())
+
+        self.surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 
 
         self.filename = 'start_map.csv'
@@ -67,20 +61,21 @@ class States_manager():
                         print("start")
 
 
-    def draw(self, surface):
-        surface.fill((100, 100, 100))#background
+    def draw(self):
+        self.surface.fill((100, 100, 100))#background
 
         if self.state == "intro":
-            self.draw_intro_state(surface)
-        elif self.state == "start":
+            self.intro_group.draw(self.surface)
+        if self.state == "start":
+            self.surface.fill((63, 23, 76))
+        if self.state == "running":
+            self.groups_manager.get_drawing_group().draw(self.surface)
+            make_level.Make_levels().load_level(make_level.Make_levels().level_num, self.groups_manager)
+        if self.state == "paused":
+            self.surface.fill((8, 98, 23))
+        if self.state == "dead":
             pass
-        elif self.state == "running":
-            self.draw_running_state(surface)
-        elif self.state == "paused":
-            pass
-        elif self.state == "dead":
-            pass
-        elif self.state == "game_over":
+        if self.state == "game_over":
             pass
 
         pygame.display.flip()
@@ -89,48 +84,16 @@ class States_manager():
 
     def update(self):
         if self.state == "intro":
-            self.update_intro_state()
-        elif self.state == "start":
+            self.intro_group.update(self.state)
+        if self.state == "start":
             pass
-        elif self.state == "running":
-            self.update_running_state()
-        elif self.state == "paused":
+        if self.state == "running":
+            self.groups_manager.update()
+
+
+        if self.state == "paused":
             pass
-        elif self.state == "dead":
+        if self.state == "dead":
             pass
-        elif self.state == "game_over":
+        if self.state == "game_over":
             pass
-
-
-
-    def draw_intro_state(self, surface):
-        self.intro_group.draw(surface)
-
-    def update_intro_state(self):
-        self.intro_group.update(self.state)
-
-
-
-
-    def draw_running_state(self):
-        self.player_group.draw(self.surface)
-        self.ammo_pickup_group.draw(self.surface)
-        self.gun2_pickup_group.draw(self.surface)
-        self.bullet_group.draw(self.surface)
-        self.block_group.draw(self.surface)
-        self.enemy_group.draw(self.surface)
-        self.solid_objects_group.draw(self.surface)
-        self.door_group.draw(self.surface)
-
-    def update_running_state(self):
-        self.solid_objects_group.add(self.block_group , self.enemy_group, self.crate_group, self.gun_crate_group)
-        self.solid_objects_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
-        self.crate_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
-        self.gun_crate_group.update(self.solid_objects_group, self.player_group, self.bullet_group)
-        self.player_group.update(self.solid_objects_group, self.bullet_group, self.ammo_pickup_group, self.gun2_pickup_group, self.player_group)
-        self.block_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
-        self.bullet_group.update(self.solid_objects_group, self.bullet_group, self.crate_group, self.ammo_pickup_group, self.enemy_group, self.gun_crate_group, self.gun2_pickup_group, self.player_group)
-        self.enemy_group.update(self.solid_objects_group, self.bullet_group, self.player_group)
-        self.level_transtion_group.update()
-        self.ammo_pickup_group.update()
-        self.gun2_pickup_group.update()

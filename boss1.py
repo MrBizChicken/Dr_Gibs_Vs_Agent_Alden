@@ -24,8 +24,8 @@ class Boss1(Main_entity):
 
 
 
-    def update(self, solid_objects_group, bullet_group ,player_group):
-
+    def update(self, main_group):
+        solid_objects_group = main_group.solid_objects_group
         self.move(solid_objects_group, self.speed)
         self.key_input(solid_objects_group)
 

@@ -24,7 +24,9 @@ class Intro(pygame.sprite.Sprite):
             self.next_frame_timer = pygame.time.get_ticks()
             self.frame += 1
             self.image = self.get_image_from_sprite_sheet(0, self.frame * 256)
+        if self.frame == self.max_frame:
             states_manager_state = "running"
+            # print("Truee ")
 
 
 

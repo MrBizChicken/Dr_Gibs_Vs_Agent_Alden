@@ -14,7 +14,15 @@ class Bullet(Main_entity):
         self.rect.center = (self.x, self.y)
         self.dir = dir
 
-    def update(self, solid_objects_group, bullet_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group, boss1_group):
+    def update(self, main_group):
+        solid_objects_group = main_group.solid_objects_group
+        crate_group = main_group.crate_group
+        ammo_pickup_group = main_group.ammo_pickup_group
+        enemy_group = main_group.enemy_group
+        gun_crate_group = main_group.gun_crate_group
+        gun2_pickup_group = main_group.gun2_pickup_group
+        player_group = main_group.player_group
+        boss1_group = main_group.boss1_group
         self.rect = self.rect.move(self.dir.x * self.speed, self.dir.y * self.speed)
         self.collide(solid_objects_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group, boss1_group)
 

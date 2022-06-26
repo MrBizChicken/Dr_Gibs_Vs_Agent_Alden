@@ -24,7 +24,8 @@ class Henchmen(Enemy_entity):
 
 
 
-    def update(self, solid_objects_group, bullet_group ,player_group):
+    def update(self, main_group):
+        solid_objects_group = main_group.solid_objects_group
 
         self.reverse_direction_move(solid_objects_group, self.speed)
 
