@@ -15,7 +15,7 @@ class Player(Main_entity):
         self.image.fill((0, 255, 0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
-        self.direction  = pygame.math.Vector2()
+        self.direction  = pygame.math.Vector2(0, 0)
         self.bullet_size = self.width // 4
         self.facing_direction = pygame.math.Vector2(0, 0)
         self.can_shoot = True
@@ -31,7 +31,7 @@ class Player(Main_entity):
 
         self.key_input(solid_objects_group, bullet_group, ammo_pickup_group)
         self.move(solid_objects_group, self.speed)
-        print(self.speed)
+
         if pygame.time.get_ticks() % self.gun.shoot_speed == 0:
             self.can_shoot = True;
 
@@ -57,19 +57,20 @@ class Player(Main_entity):
         if keys[pygame.K_UP] or keys[pygame.K_w]:
             self.direction.y = -1
             self.facing_direction = pygame.math.Vector2(0, -1)
+
         elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             self.direction.y = 1
             self.facing_direction = pygame.math.Vector2(0, 1)
 
-
-        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.direction.x = -1
-
             self.facing_direction = pygame.math.Vector2(-1, 0)
+
         elif keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.direction.x = 1
             self.facing_direction = pygame.math.Vector2(1, 0)
-
+        else:
+            self.direction = pygame.math.Vector2(0, 0)
 
         if keys[pygame.K_e]:
             self.shoot(bullet_group, ammo_pickup_group)
