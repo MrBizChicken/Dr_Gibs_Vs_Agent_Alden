@@ -12,7 +12,9 @@ import gun_crate
 import ammo_pickup
 import gun2_pickup
 import door
+import door_lock
 import boss1
+import table
 
 
 class Make_levels():
@@ -57,6 +59,7 @@ class Make_levels():
         enemy_group = main_group.enemy_group
         player_group = main_group.player_group
         door_group = main_group.door_group
+        door_lock_group = main_group.door_lock_group
         crate_group = main_group.crate_group
         gun_crate_group = main_group.gun_crate_group
         boss1_group = main_group.boss1_group
@@ -64,6 +67,7 @@ class Make_levels():
         ammo_pickup_group = main_group.ammo_pickup_group
         gun2_pickup_group = main_group.gun2_pickup_group
         solid_objects_group = main_group.solid_objects_group
+        table_group = main_group.table_group
         player_group.empty()
         bullet_group.empty()
         ammo_pickup_group.empty()
@@ -75,6 +79,7 @@ class Make_levels():
         solid_objects_group.empty()
         door_group.empty()
         boss1_group.empty()
+        table_group.empty()
 
 
         map_tiles = self.get_list(self.level[level])
@@ -106,8 +111,16 @@ class Make_levels():
                 if item == "d":
                     door_group.add(door.Door(col * BLOCK_SIZE, row * BLOCK_SIZE))
 
+                if item == "l":
+                    door_lock_group.add(door_lock.Door_lock(col * BLOCK_SIZE, row * BLOCK_SIZE))
+
                 if item == "b1":
                     boss1_group.add(boss1.Boss1(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
+
+                if item == "t":
+                    table_group.add(table.Table(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
 
 
 
@@ -123,8 +136,11 @@ class Make_levels():
         ammo_pickup_group = main_group.ammo_pickup_group
         gun2_pickup_group = main_group.gun2_pickup_group
         solid_objects_group = main_group.solid_objects_group
+        table_group = main_group.table_group
+
 
         player_group.empty()
+        table_group.empty()
         bullet_group.empty()
         ammo_pickup_group.empty()
         block_group.empty()
@@ -136,10 +152,18 @@ class Make_levels():
         door_group.empty()
         self.load_level(self.level_num, main_group)
 
-    def collide_door(self, main_group):
+    def lock_door(self, main_group):
         player_group = main_group.player_group
         door_group = main_group.door_group
+        enemy_group = main_group.enemy_group
+        solid_objects_group = main_group.enemy_group
+        door_lock_group = main_group.door_lock_group
         if pygame.sprite.groupcollide(player_group, door_group, False, False):
 
-            self.level_num = self.level_num + 1
-            self.clear_level(main_group)
+
+                self.level_num = self.level_num + 1
+                can_go_through_door = False
+                self.clear_level(main_group)
+        if not enemy_group:
+            for l in door_lock_group:
+                l.kill()

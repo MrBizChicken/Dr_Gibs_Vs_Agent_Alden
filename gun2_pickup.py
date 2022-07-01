@@ -9,6 +9,6 @@ class Gun2_pickup(pygame.sprite.Sprite):
         self.height = 32
         self.x = x
         self.y = y
-        self.image = pygame.image.load("gun2.png")
+        self.image = pygame.image.load("images/gun2.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)

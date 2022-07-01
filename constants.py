@@ -22,9 +22,6 @@ LEVELS = [
         "levels/LEVEL5.csv",
         "levels/LEVEL6.csv",
         "levels/LEVEL7.csv",
-        "levels/LEVEL8.csv",
-        "levels/LEVEL9.csv",
-        "levels/LEVEL10.csv",
-        "levels/LEVEL11.csv",
-        "levels/LEVEL12.csv"
+        "levels/LEVEL8.csv"
+
         ]

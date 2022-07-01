@@ -8,14 +8,14 @@ class Boss1(Main_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
 
-        self.speed = 5
+        self.speed = 3
         self.change_direction_timer = 2 #SECONDS
 
         self.image = pygame.Surface([self.width, self.height])
         self.image.fill((200, 0, 0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
-        self.health = 20
+        self.health = 10
         self.gun = gun1.Gun1()
 
 
@@ -31,6 +31,8 @@ class Boss1(Main_entity):
 
 
     def hurt(self, player_group):
+        self.width += 5
+        self.height += 5
         keys = pygame.key.get_pressed()
 
         for p in player_group:

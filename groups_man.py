@@ -16,7 +16,8 @@ class Groups_man:
         self.solid_objects_group = pygame.sprite.Group()
         self.door_group = pygame.sprite.Group()
         self.boss1_group = pygame.sprite.Group()
-
+        self.door_lock_group = pygame.sprite.Group()
+        self.table_group = pygame.sprite.Group()
         self.drawable_objects = pygame.sprite.Group()
         self.main_group = self.update_main_group()
 
@@ -26,7 +27,7 @@ class Groups_man:
     def update(self):
         self.main_group = self.update_main_group()
         self.solid_objects_group.empty()
-        self.solid_objects_group.add(self.block_group , self.enemy_group, self.crate_group, self.gun_crate_group)
+        self.solid_objects_group.add(self.block_group , self.enemy_group, self.crate_group, self.gun_crate_group, self.boss1_group, self.door_lock_group, self.table_group)
         self.solid_objects_group.update(self)
         self.crate_group.update(self)
         self.gun_crate_group.update(self)
@@ -35,6 +36,7 @@ class Groups_man:
         self.bullet_group.update(self)
         self.enemy_group.update(self)
         self.ammo_pickup_group.update()
+        self.boss1_group.update(self)
         self.gun2_pickup_group.update()
 
 
@@ -52,7 +54,9 @@ class Groups_man:
             self.gun2_pickup_group,
             self.solid_objects_group,
             self.door_group,
-            self.boss1_group
+            self.boss1_group,
+            self.door_lock_group,
+            self.table_group
         )
         return self.drawable_objects
 
@@ -74,5 +78,7 @@ class Groups_man:
             "gun2_pickup_group" : self.gun2_pickup_group,
             "solid_objects_group" : self.solid_objects_group,
             "door_group" : self.door_group,
-            "boss1_group" : self.boss1_group
+            "door_lock_group" : self.door_lock_group,
+            "boss1_group" : self.boss1_group,
+            "table_group" : self.table_group
         }

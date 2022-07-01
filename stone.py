@@ -13,6 +13,7 @@ class Stone(pygame.sprite.Sprite):
         self.image = pygame.image.load("images/stone.png")
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
+        self.random = random.randint(0, 1)
 
     def update(self, main_group):
         pass

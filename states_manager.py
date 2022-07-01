@@ -22,6 +22,7 @@ class States_manager():
         self.state = self.states[2]
         self.intro_group = pygame.sprite.Group()
         self.intro_group.add(intro.Intro())
+        self.background_image = pygame.image.load("images/floot.png").convert()
 
         self.surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
 
@@ -71,6 +72,8 @@ class States_manager():
         if self.state == "start":
             self.surface.fill((63, 23, 76))
         if self.state == "running":
+            self.surface.blit(self.background_image, [0, 0])
+
             self.groups_manager.get_drawing_group().draw(self.surface)
         if self.state == "paused":
             self.surface.fill((8, 98, 23))
@@ -90,8 +93,10 @@ class States_manager():
         if self.state == "start":
             pass
         if self.state == "running":
+
             self.groups_manager.update()
-            self.ml.collide_door(self.groups_manager)
+            self.ml.lock_door(self.groups_manager)
+
 
 
         if self.state == "paused":
