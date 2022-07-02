@@ -1,13 +1,15 @@
 from constants import *
 import pygame
 import states_manager
-
-
+from pygame import mixer
+mixer.init()
 
 
 def main():
     pygame.init()
     clock = pygame.time.Clock()
+    pygame.mixer.music.load("music.mp3")
+    pygame.mixer.music.play(0)
     pygame.mouse.set_visible(False)
     screen_size = pygame.FULLSCREEN
     surface = pygame.display.set_mode((COLS * BLOCK_SIZE, ROWS * BLOCK_SIZE))

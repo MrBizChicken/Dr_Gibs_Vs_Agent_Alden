@@ -12,7 +12,7 @@ class Player(Main_entity):
         super().__init__(x, y, width, height)
 
         self.speed = 5
-        self.spritesheet = pygame.image.load("images/spritesheet.png")
+        self.spritesheet = pygame.image.load("images/spritesheet.png").convert()
         self.y_sprite_sheet_index = 0
 
         self.image = self.get_image_from_sprite_sheet(0, self.y_sprite_sheet_index)
@@ -24,16 +24,17 @@ class Player(Main_entity):
         self.can_swicth2 = False
         self.frame = 0
         self.max_frame = 3
-        self.animation_speed = 0.5
+        self.animation_speed = 0.05
         self.rect.topleft = (x, y)
         self.shoot_timer = pygame.time.get_ticks()
-        self.delay = 2000
+        self.delay = 500
         self.can_cluck = True
 
 
         self.gun = gun1.Gun1()
 
     def update(self, main_group):
+
         self.animate()
         solid_objects_group = main_group.solid_objects_group
         bullet_group = main_group.bullet_group
@@ -108,8 +109,7 @@ class Player(Main_entity):
         if keys[pygame.K_e]:
             self.shoot(bullet_group, ammo_pickup_group)
             if self.can_cluck == True:
-                pygame.mixer.music.load("cluck.mp3")
-                pygame.mixer.music.play(0)
+
                 self.can_cluck = False
 
         if keys[pygame.K_1]:
