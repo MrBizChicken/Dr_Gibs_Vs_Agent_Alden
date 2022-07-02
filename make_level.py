@@ -14,6 +14,7 @@ import gun2_pickup
 import door
 import door_lock
 import boss1
+import telepotation_device
 import table
 
 
@@ -68,6 +69,7 @@ class Make_levels():
         gun2_pickup_group = main_group.gun2_pickup_group
         solid_objects_group = main_group.solid_objects_group
         table_group = main_group.table_group
+        tp_group = main_group.tp_group
         player_group.empty()
         bullet_group.empty()
         ammo_pickup_group.empty()
@@ -80,6 +82,7 @@ class Make_levels():
         door_group.empty()
         boss1_group.empty()
         table_group.empty()
+        tp_group.empty()
 
 
         map_tiles = self.get_list(self.level[level])
@@ -121,6 +124,9 @@ class Make_levels():
                 if item == "t":
                     table_group.add(table.Table(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
+                if item == "tp":
+                    tp_group.add(telepotation_device.Tp(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
 
 
 
@@ -137,10 +143,13 @@ class Make_levels():
         gun2_pickup_group = main_group.gun2_pickup_group
         solid_objects_group = main_group.solid_objects_group
         table_group = main_group.table_group
+        tp_group = main_group.tp_group
 
 
         player_group.empty()
         table_group.empty()
+        tp_group.empty()
+
         bullet_group.empty()
         ammo_pickup_group.empty()
         block_group.empty()

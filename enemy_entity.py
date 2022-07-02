@@ -18,7 +18,8 @@ class Enemy_entity(Main_entity):
         self.timer_start_time = 0
         self.can_move_timer_ticks = 0
         self.can_move = True
-
+        self.move_timer = pygame.time.get_ticks()
+        self.delay = 2000
 
     def random_direction_move(self, solid_objects_group, speed):
     # diagonal speed is to fast withoust this
@@ -32,6 +33,26 @@ class Enemy_entity(Main_entity):
         self.rect.y += self.direction.y * speed
         if self.collison(solid_objects_group, "v"):
             self.direction  = self.random_vector2()
+
+
+    def wait_random_direction_move(self, solid_objects_group, speed):
+    # diagonal speed is to fast withoust this
+        if pygame.time.get_ticks() >= self.move_timer + self.delay:
+            self.move_timer = pygame.time.get_ticks()
+            self.direction  = self.random_vector2()
+
+
+        if self.direction.magnitude() != 0:
+            self.direction = self.direction.normalize()
+
+        self.rect.x += self.direction.x * speed
+        if self.collison(solid_objects_group, "h"):
+            self.direction  = self.random_vector2()
+
+        self.rect.y += self.direction.y * speed
+        if self.collison(solid_objects_group, "v"):
+            self.direction  = self.random_vector2()
+
 
 
     def reverse_direction_move(self, solid_objects_group, speed):
@@ -94,6 +115,7 @@ class Enemy_entity(Main_entity):
         new_vector = pygame.math.Vector2(0, 0)
         while new_vector == [0, 0]:
             new_vector = pygame.math.Vector2(rand.randint(-1, 1), rand.randint(-1, 1))
+
         return new_vector
 
 
