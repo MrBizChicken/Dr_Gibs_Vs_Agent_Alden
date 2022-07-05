@@ -27,7 +27,7 @@ class Player(Main_entity):
         self.animation_speed = 0.05
         self.rect.topleft = (x, y)
         self.shoot_timer = pygame.time.get_ticks()
-        self.delay = 500
+        self.delay = 100
         self.can_cluck = True
 
 

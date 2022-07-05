@@ -8,7 +8,7 @@ mixer.init()
 def main():
     pygame.init()
     clock = pygame.time.Clock()
-    pygame.mixer.music.load("music.mp3")
+    pygame.mixer.music.load("images/music.mp3")
     pygame.mixer.music.play(0)
     pygame.mouse.set_visible(False)
     screen_size = pygame.FULLSCREEN

@@ -9,7 +9,7 @@ class Bullet(Main_entity):
 
         self.speed = 20
         self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((200, 200, 200)) 
+        self.image.fill((200, 200, 200))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.center = (self.x, self.y)
         self.dir = dir
@@ -24,10 +24,10 @@ class Bullet(Main_entity):
         player_group = main_group.player_group
         boss1_group = main_group.boss1_group
         self.rect = self.rect.move(self.dir.x * self.speed, self.dir.y * self.speed)
-        self.collide(solid_objects_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group, boss1_group)
+        self.collide(solid_objects_group, crate_group, ammo_pickup_group, enemy_group, gun_crate_group, gun2_pickup_group, player_group, boss1_group, main_group)
 
 
-    def collide(self, solid_objects_group, crate_group, ammo_pickup_group , enemy_group, gun_crate_group, gun2_pickup_group, player_group, boss1_group):
+    def collide(self, solid_objects_group, crate_group, ammo_pickup_group , enemy_group, gun_crate_group, gun2_pickup_group, player_group, boss1_group, main_group):
 
         if pygame.sprite.spritecollide(self, crate_group, True):
             self.kill()
@@ -39,7 +39,7 @@ class Bullet(Main_entity):
 
         for h in enemy_group:
             if pygame.Rect.colliderect(self.rect, h.rect):
-                h.hurt(player_group)
+                h.hurt(player_group, main_group)
                 self.kill()
 
                 if h.health <= 0:

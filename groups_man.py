@@ -21,6 +21,7 @@ class Groups_man:
         self.drawable_objects = pygame.sprite.Group()
         self.main_group = self.update_main_group()
         self.tp_group = pygame.sprite.Group()
+        self.enemy_health_group = pygame.sprite.Group()
 
 
 
@@ -58,7 +59,8 @@ class Groups_man:
             self.boss1_group,
             self.door_lock_group,
             self.table_group,
-            self.tp_group
+            self.tp_group,
+            self.enemy_health_group
         )
         return self.drawable_objects
 
@@ -82,6 +84,7 @@ class Groups_man:
             "door_group" : self.door_group,
             "door_lock_group" : self.door_lock_group,
             "boss1_group" : self.boss1_group,
-            "table_group" : self.table_group
+            "table_group" : self.table_group,
+
 
         }
