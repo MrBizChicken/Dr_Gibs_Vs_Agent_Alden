@@ -16,6 +16,7 @@ import door_lock
 import boss1
 import telepotation_device
 import table
+import end
 
 
 class Make_levels():
@@ -24,7 +25,7 @@ class Make_levels():
         self.level = LEVELS
 
         self.level_num = 0
-
+        self.end_group = pygame.sprite.Group()
         # self.load_level(self.level_num)
 
 
@@ -161,18 +162,37 @@ class Make_levels():
         door_group.empty()
         self.load_level(self.level_num, main_group)
 
-    def lock_door(self, main_group):
+    def lock_door(self, main_group, state):
         player_group = main_group.player_group
         door_group = main_group.door_group
         enemy_group = main_group.enemy_group
         solid_objects_group = main_group.enemy_group
         door_lock_group = main_group.door_lock_group
-        if pygame.sprite.groupcollide(player_group, door_group, False, False):
+
+        if self.level_num == 9:
 
 
-                self.level_num = self.level_num + 1
-                can_go_through_door = False
-                self.clear_level(main_group)
+            state = state[2]
+        if state == "end":
+
+            self.end_group.add(end.End())
+
+            self.end_group.draw(self.surface)
+
+
+        elif pygame.sprite.groupcollide(player_group, door_group, False, False):
+
+
+            self.level_num = self.level_num + 1
+            can_go_through_door = False
+            self.clear_level(main_group)
+
+
+        if pygame.sprite.groupcollide(player_group, enemy_group, False, False):
+
+
+            for p in player_group:
+                p.hurt()
         if not enemy_group:
             for l in door_lock_group:
                 l.kill()

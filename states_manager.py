@@ -14,15 +14,17 @@ import ammo_pickup
 import gun2_pickup
 import door
 import intro
+import end
 import make_level
 import groups_man
 class States_manager():
     def __init__(self):
         self.groups_manager = groups_man.Groups_man()
-        self.states = ["intro", "start", "running", "paused", "dead", "game_over"]
+        self.states = ["intro", "start", "running", "paused", "dead", "end"]
         self.state = self.states[2]
         self.intro_group = pygame.sprite.Group()
         self.intro_group.add(intro.Intro())
+
         self.background_image = pygame.image.load("images/floot.png").convert()
 
         self.surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
@@ -81,8 +83,6 @@ class States_manager():
             self.surface.fill((8, 98, 23))
         if self.state == "dead":
             pass
-        if self.state == "game_over":
-            pass
 
         pygame.display.flip()
 
@@ -97,7 +97,7 @@ class States_manager():
         if self.state == "running":
 
             self.groups_manager.update()
-            self.ml.lock_door(self.groups_manager)
+            self.ml.lock_door(self.groups_manager, self.state)
 
 
 
@@ -105,5 +105,5 @@ class States_manager():
             pass
         if self.state == "dead":
             pass
-        if self.state == "game_over":
+        if self.state == "end":
             pass
