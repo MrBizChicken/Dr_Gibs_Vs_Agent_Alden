@@ -11,7 +11,7 @@ class Player(Main_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
 
-        self.speed = 7
+        self.speed = 8
         self.spritesheet = pygame.image.load("images/spritesheet.png").convert()
         self.y_sprite_sheet_index = 0
 
@@ -27,7 +27,7 @@ class Player(Main_entity):
         self.animation_speed = 0.05
         self.rect.topleft = (x, y)
         self.shoot_timer = pygame.time.get_ticks()
-        self.delay = 100
+        self.delay = 1
         self.can_cluck = True
         self.health = 5
 
@@ -132,4 +132,4 @@ class Player(Main_entity):
         if self.gun.ammo <= 0:
             self.can_cluck = False
     def hurt(self):
-        self.kill()
+        pass

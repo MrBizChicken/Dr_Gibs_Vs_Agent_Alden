@@ -21,7 +21,7 @@ class States_manager():
     def __init__(self):
         self.groups_manager = groups_man.Groups_man()
         self.states = ["intro", "start", "running", "paused", "dead", "end"]
-        self.state = self.states[2]
+        self.state = self.states[1]
         self.intro_group = pygame.sprite.Group()
         self.intro_group.add(intro.Intro())
 

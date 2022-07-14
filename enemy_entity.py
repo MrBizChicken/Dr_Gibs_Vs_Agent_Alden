@@ -2,6 +2,8 @@ from constants import *
 import pygame
 import random as rand
 from main_entity import Main_entity
+import math
+from pygame.locals import *
 
 class Enemy_entity(Main_entity):
     def __init__(self, x, y, width, height):
@@ -13,7 +15,7 @@ class Enemy_entity(Main_entity):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
         self.direction  = pygame.math.Vector2(1, 1)
-
+        self.speed = 2
         self.can_move_timer = 2 #SECONDS
         self.timer_start_time = 0
         self.can_move_timer_ticks = 0
@@ -126,3 +128,18 @@ class Enemy_entity(Main_entity):
             self.can_move = True
             self.timer_ticks = 0
         self.timer_ticks += 1
+
+
+    def move_towards_player2(self, player, solid_objects_group):
+        # Find direction vector (dx, dy) between enemy and player.
+        find_vector = pygame.math.Vector2(player.rect.x - self.rect.x,
+                                      player.rect.y - self.rect.y)
+        find_vector.normalize()
+        # Move along this normalized vector towards the player at current speed.
+        find_vector.scale_to_length(self.speed)
+
+
+
+
+
+        self.rect.move_ip(find_vector)

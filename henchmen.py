@@ -31,9 +31,10 @@ class Henchmen(Enemy_entity):
 
     def update(self, main_group):
         solid_objects_group = main_group.solid_objects_group
+        player_group = main_group.player_group
 
-
-        self.wait_random_direction_move(solid_objects_group, self.speed)
+        for p in player_group:
+            self.move_towards_player2( p, solid_objects_group)
 
     def hurt(self, player_group, main):
 
