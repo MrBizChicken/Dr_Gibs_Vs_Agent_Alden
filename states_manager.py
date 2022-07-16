@@ -26,8 +26,11 @@ class States_manager():
         self.intro_group.add(intro.Intro())
 
         self.background_image = pygame.image.load("images/floot.png").convert()
+        self.pause_image = pygame.image.load("images/pause.png").convert()
+        self.start_image = pygame.image.load("images/start.png").convert()
 
-        self.surface = pygame.display.set_mode((GAME_WIDTH, GAME_HEIGHT))
+        self.screen_size = pygame.FULLSCREEN
+        self.surface = pygame.display.set_mode((0, 0), self.screen_size)
 
 
         self.filename = 'start_map.csv'
@@ -61,11 +64,10 @@ class States_manager():
                     else:
                         self.state = "paused"
 
-
-                if event.key == pygame.K_l:#SPACE
+            if event.type == pygame.KEYUP:
+                if event.key == 32:#SPACE
                     if self.state == "start":
                         self.state = "running"
-                        print("start")
 
 
     def draw(self):
@@ -74,13 +76,13 @@ class States_manager():
         if self.state == "intro":
             self.intro_group.draw(self.surface)
         if self.state == "start":
-            self.surface.fill((63, 23, 76))
+            self.surface.blit(self.start_image, [0, 0])
         if self.state == "running":
             self.surface.blit(self.background_image, [0, 0])
 
             self.groups_manager.get_drawing_group().draw(self.surface)
         if self.state == "paused":
-            self.surface.fill((8, 98, 23))
+            self.surface.blit(self.pause_image, [0, 0])
         if self.state == "dead":
             pass
 

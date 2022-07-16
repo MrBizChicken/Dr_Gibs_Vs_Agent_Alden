@@ -14,6 +14,7 @@ import gun2_pickup
 import door
 import door_lock
 import boss1
+import boss2
 import telepotation_device
 import table
 import end
@@ -71,6 +72,7 @@ class Make_levels():
         solid_objects_group = main_group.solid_objects_group
         table_group = main_group.table_group
         tp_group = main_group.tp_group
+        boss2_group = main_group.boss2_group
         player_group.empty()
         bullet_group.empty()
         ammo_pickup_group.empty()
@@ -82,6 +84,7 @@ class Make_levels():
         solid_objects_group.empty()
         door_group.empty()
         boss1_group.empty()
+        boss2_group.empty()
         table_group.empty()
         tp_group.empty()
 
@@ -121,6 +124,9 @@ class Make_levels():
                 if item == "b1":
                     boss1_group.add(boss1.Boss1(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
 
+                if item == "b2":
+                    boss2_group.add(boss2.Boss2(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
+
 
                 if item == "t":
                     table_group.add(table.Table(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE))
@@ -145,12 +151,13 @@ class Make_levels():
         solid_objects_group = main_group.solid_objects_group
         table_group = main_group.table_group
         tp_group = main_group.tp_group
+        boss2_group = main_group.boss2_group
 
 
         player_group.empty()
         table_group.empty()
         tp_group.empty()
-
+        boss2_group.empty()
         bullet_group.empty()
         ammo_pickup_group.empty()
         block_group.empty()

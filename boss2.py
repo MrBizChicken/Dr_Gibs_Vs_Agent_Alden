@@ -4,24 +4,19 @@ import random as rand
 from enemy_entity import Enemy_entity
 import gun1
 import gun2
-import enemy_health
-class Henchmen(Enemy_entity):
+class Boss2(Enemy_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
 
-        self.speed = 2
-        self.health_height = 20
-        self.health_width = 64
+        self.speed = 3
         self.change_direction_timer = 2 #SECONDS
 
-        self.image = pygame.image.load("images/enemy.png")
+        self.image = pygame.Surface([self.width, self.height])
+        self.image.fill((200, 0, 0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
-        self.health = 5
+        self.health = 200
         self.gun = gun1.Gun1()
-        self.random_move = rand.randint(0, 1)
-        self.show_timer = pygame.time.get_ticks()
-        self.delay = 1000
 
 
 
@@ -31,11 +26,12 @@ class Henchmen(Enemy_entity):
 
     def update(self, main_group):
         solid_objects_group = main_group.solid_objects_group
-        player_group = main_group.player_group
         self.wait_random_direction_move(solid_objects_group, self.speed)
 
-    def hurt(self, player_group, main):
 
+    def hurt(self, player_group):
+        self.rect.width += 5
+        self.rect.height += 5
         keys = pygame.key.get_pressed()
 
         for p in player_group:
@@ -45,5 +41,4 @@ class Henchmen(Enemy_entity):
 
             if keys[pygame.K_1]:
                 self.gun = gun1.Gun1()
-
         self.health -= self.gun.damage
