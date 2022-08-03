@@ -8,6 +8,7 @@ class Main_entity(pygame.sprite.Sprite):
 		self.height = height
 		self.x = x
 		self.y = y
+		self.health = 10
 
 		self.image = pygame.Surface([self.width, self.height])
 		self.image.fill((255, 0, 0))

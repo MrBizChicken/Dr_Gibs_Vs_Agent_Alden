@@ -18,21 +18,25 @@ class Intro(pygame.sprite.Sprite):
         self.max_frame = 4
         self.next_frame_timer = pygame.time.get_ticks()
         self.frame_timer_limit = 1000
+        self.fin = False
 
-    def update(self, states_manager_state):
+    def update(self):
         if pygame.time.get_ticks() >= self.next_frame_timer + self.frame_timer_limit:
             self.next_frame_timer = pygame.time.get_ticks()
             self.frame += 1
-            self.image = self.get_image_from_sprite_sheet(0, self.frame * 256)
-        if self.frame == self.max_frame:
-            states_manager_state = "running"
-            # print("Truee ")
+            self.image = self.get_image_from_sprite_sheet(0, self.frame * 1000)
+            if self.frame == self.max_frame:
+                self.is_intro_fin
+    def is_intro_fin(self):
+        return True
+
+
 
 
 
 
     def get_image_from_sprite_sheet(self, row, col):
-        image = pygame.Surface((256, 256))
-        image.blit(self.spritesheet, (0, 0), (row, col, 256, 256))
+        image = pygame.Surface((1300, 1000))
+        image.blit(self.spritesheet, (0, 0), (row, col, 1300, 1000))
         #image.set_colorkey()
         return image

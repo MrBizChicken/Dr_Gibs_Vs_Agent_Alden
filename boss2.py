@@ -8,11 +8,11 @@ class Boss2(Enemy_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
 
-        self.speed = 3
+        self.speed = 8
         self.change_direction_timer = 2 #SECONDS
 
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill((200, 0, 0))
+        self.image = pygame.image.load("images/boss2.png")
+        self.rect = pygame.Rect(self.image.get_rect())
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
         self.health = 200

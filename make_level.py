@@ -26,6 +26,7 @@ class Make_levels():
         self.level = LEVELS
 
         self.level_num = 0
+
         self.end_group = pygame.sprite.Group()
         # self.load_level(self.level_num)
 

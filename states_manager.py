@@ -20,15 +20,10 @@ import groups_man
 class States_manager():
     def __init__(self):
         self.groups_manager = groups_man.Groups_man()
-        self.states = ["intro", "start", "running", "paused", "dead", "end"]
-        self.state = self.states[1]
+        self.states = ["intro", "start", "running", "paused", "dead", "game_over"]
+        self.state = self.states[0]
         self.intro_group = pygame.sprite.Group()
         self.intro_group.add(intro.Intro())
-
-        self.background_image = pygame.image.load("images/floot.png").convert()
-        self.pause_image = pygame.image.load("images/pause.png").convert()
-        self.start_image = pygame.image.load("images/start.png").convert()
-
         self.screen_size = pygame.FULLSCREEN
         self.surface = pygame.display.set_mode((0, 0), self.screen_size)
 
@@ -39,6 +34,14 @@ class States_manager():
 
         self.ml = make_level.Make_levels()
         self.ml.load_level(self.ml.level_num, self.groups_manager)
+        self.pause_image = pygame.image.load("images/pause.png")
+        self.start_image = pygame.image.load("images/start.png")
+        self.background_image = pygame.image.load("images/floot.png")
+
+        if intro.Intro().is_intro_fin() == True:
+
+
+            self.state = "start"
 
     def events(self):
 
@@ -50,6 +53,8 @@ class States_manager():
             #     self.running = False
 
             #Keyboard
+
+
             if event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed()
 
@@ -86,6 +91,10 @@ class States_manager():
         if self.state == "dead":
             pass
 
+        if self.state == "end":
+            self.surface.blit(self.end_image, [0, 0])
+
+
         pygame.display.flip()
 
 
@@ -93,7 +102,8 @@ class States_manager():
 
     def update(self):
         if self.state == "intro":
-            self.intro_group.update(self.state)
+            self.intro_group.update()
+
         if self.state == "start":
             pass
         if self.state == "running":

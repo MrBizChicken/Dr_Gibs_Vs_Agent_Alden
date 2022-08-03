@@ -9,7 +9,7 @@ def main():
     pygame.init()
     clock = pygame.time.Clock()
     pygame.mixer.music.load("images/music.mp3")
-    pygame.mixer.music.play(0)
+    # pygame.mixer.music.play(0)
     pygame.mouse.set_visible(False)
     screen_size = pygame.FULLSCREEN
     surface = pygame.display.set_mode((COLS * BLOCK_SIZE, ROWS * BLOCK_SIZE))

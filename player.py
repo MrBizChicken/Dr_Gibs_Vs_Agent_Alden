@@ -62,8 +62,10 @@ class Player(Main_entity):
 
 
     def get_image_from_sprite_sheet(self, row, col):
-        image = pygame.Surface((64, 64))
+        image = pygame.Surface((64, 64), pygame.SRCALPHA)
+
         image.blit(self.spritesheet, (0, 0), (row, col, 64, 64))
+
         #image.set_colorkey()
         return image
 
@@ -132,4 +134,4 @@ class Player(Main_entity):
         if self.gun.ammo <= 0:
             self.can_cluck = False
     def hurt(self):
-        pass
+        self.kill()
