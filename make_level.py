@@ -28,6 +28,8 @@ class Make_levels():
         self.level_num = 0
 
         self.end_group = pygame.sprite.Group()
+        self.call_timer = pygame.time.get_ticks()
+        self.delay = 1000
         # self.load_level(self.level_num)
 
 
@@ -200,7 +202,9 @@ class Make_levels():
 
 
             for p in player_group:
-                p.hurt()
+                if pygame.time.get_ticks() >= self.call_timer + self.delay:
+                    self.call_timer = pygame.time.get_ticks()
+                    p.hurt()
         if not enemy_group:
             for l in door_lock_group:
                 l.kill()

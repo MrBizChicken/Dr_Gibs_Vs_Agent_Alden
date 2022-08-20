@@ -11,7 +11,7 @@ class Player(Main_entity):
     def __init__(self, x, y, width, height):
         super().__init__(x, y, width, height)
 
-        self.speed = 5
+        self.speed = 7
         self.spritesheet = pygame.image.load("images/spritesheet.png").convert()
         self.y_sprite_sheet_index = 0
 
@@ -30,11 +30,17 @@ class Player(Main_entity):
         self.delay = 200
         self.can_cluck = True
         self.health = 5
-
-
+        self.enemy_dammage = 1
         self.gun = gun1.Gun1()
 
+        self.ammo = self.gun.ammo
+
+
+
+
     def update(self, main_group):
+        if self.health <= 0:
+            self.kill()
 
         self.animate()
         solid_objects_group = main_group.solid_objects_group
@@ -134,4 +140,5 @@ class Player(Main_entity):
         if self.gun.ammo <= 0:
             self.can_cluck = False
     def hurt(self):
-        self.kill()
+        self.health -= self.enemy_dammage
+        print(self.health)

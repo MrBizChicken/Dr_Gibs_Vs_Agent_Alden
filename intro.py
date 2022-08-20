@@ -15,20 +15,19 @@ class Intro(pygame.sprite.Sprite):
         self.rect.topleft = (0, 0)
 
         self.frame = 0
-        self.max_frame = 4
+        self.max_frame = 5
         self.next_frame_timer = pygame.time.get_ticks()
         self.frame_timer_limit = 1000
-        self.fin = False
+        self.is_intro_fin = False
 
     def update(self):
         if pygame.time.get_ticks() >= self.next_frame_timer + self.frame_timer_limit:
             self.next_frame_timer = pygame.time.get_ticks()
             self.frame += 1
             self.image = self.get_image_from_sprite_sheet(0, self.frame * 1000)
-            if self.frame == self.max_frame:
-                self.is_intro_fin
-    def is_intro_fin(self):
-        return True
+
+
+
 
 
 
